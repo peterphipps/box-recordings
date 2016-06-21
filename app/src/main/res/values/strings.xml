@@ -8,4 +8,5 @@
     <string name="num_services_found">%d services found</string>
     <string name="search_for">Search for %s</string>
     <string name="searching_for">Searching for %s</string>
+    <string name="title_activity_pair_box">PairBoxActivity</string>
 </resources>

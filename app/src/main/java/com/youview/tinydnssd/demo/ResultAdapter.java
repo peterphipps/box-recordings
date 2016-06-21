@@ -21,6 +21,7 @@
 
 package com.youview.tinydnssd.demo;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ import com.youview.tinydnssd.MDNSDiscover;
  */
 abstract class ResultAdapter extends BaseAdapter {
     private static class Holder {
-        TextView mTextDNSName, mTextIPPort, mTextTXTRecord;
+        TextView mTextModel, mTextSerial;
     }
 
     @Override
@@ -48,33 +49,47 @@ abstract class ResultAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
+        final View view;
         Holder holder;
         if (convertView == null) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.service_list_item, parent, false);
             holder = new Holder();
             view.setTag(holder);
-            holder.mTextDNSName = (TextView) view.findViewById(R.id.text_dns_name);
-            holder.mTextIPPort = (TextView) view.findViewById(R.id.text_ip_port);
-            holder.mTextTXTRecord = (TextView) view.findViewById(R.id.text_txt_record);
+            holder.mTextModel = (TextView) view.findViewById(R.id.text_model);
+            holder.mTextSerial = (TextView) view.findViewById(R.id.text_serial);
         } else {
             view = convertView;
             holder = (Holder) view.getTag();
         }
-        MDNSDiscover.Result item = getItem(position);
+        final MDNSDiscover.Result item = getItem(position);
         String ipAndPort = null, dnsName = null, txtRecord = null;
+        String txtModel = null, txtSerial = null, txtUid = null;
         if (item.a != null) {
             dnsName = item.a.fqdn;
             if (item.srv != null) {
                 ipAndPort = item.a.ipaddr + ":" + item.srv.port;
             }
         }
+        SetTopBox setTopBox;
         if (item.txt != null) {
-            txtRecord = item.txt.dict.toString();
+            setTopBox = new SetTopBox(item);
         }
-        holder.mTextDNSName.setText(dnsName);
-        holder.mTextIPPort.setText(ipAndPort);
-        holder.mTextTXTRecord.setText(txtRecord);
+        else {
+            setTopBox = new SetTopBox(0);
+        }
+        holder.mTextModel.setText("Model: " + setTopBox.getModel());
+        holder.mTextSerial.setText("Serial No.: " + setTopBox.getSerial());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), PairBoxActivity.class);
+                SetTopBox setTopBox = new SetTopBox(item);
+                intent.putExtra("setTopBox", setTopBox);
+                view.getContext().startActivity(intent);
+            }
+        });
+
         return view;
     }
 }
