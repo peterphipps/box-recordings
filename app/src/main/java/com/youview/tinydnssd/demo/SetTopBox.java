@@ -22,6 +22,7 @@ public class SetTopBox implements Parcelable {
         vendor = item.txt.dict.get("vendor");
     }
 
+
     public SetTopBox(int init) {
         switch (init) {
             case 0:
