@@ -7,20 +7,24 @@
 
     <Button
         android:id="@+id/button_discover"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/gap_small"
-        android:text="@string/discover"/>
+        android:text="@string/discover"
+        android:background="@drawable/button"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/num_services_found"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/button_discover"
         android:layout_alignBottom="@id/button_discover"
-        android:layout_toLeftOf="@id/button_discover"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/gap_small"
+        android:textSize="20dp"
+        android:textColor="@color/black"
         android:gravity="center_vertical"
         tools:text="@string/num_services_found"/>
 

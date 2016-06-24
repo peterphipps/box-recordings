@@ -22,7 +22,9 @@
 package com.youview.tinydnssd.demo;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -77,8 +79,8 @@ abstract class ResultAdapter extends BaseAdapter {
         else {
             setTopBox = new SetTopBox(0);
         }
-        holder.mTextModel.setText("Model: " + setTopBox.getModel());
-        holder.mTextSerial.setText("Serial No.: " + setTopBox.getSerial());
+        holder.mTextModel.setText(setTopBox.getVendor() + " " + setTopBox.getModel());
+        holder.mTextSerial.setText("Serial ending in: " + setTopBox.getSerial());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -30,8 +30,8 @@
         </activity>
         <activity
             android:name=".PairBoxActivity"
-            android:label="@string/title_activity_pair_box"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/pair_boxes_label" />
+        <activity android:name=".RecordingListActivity"></activity>
     </application>
 
 </manifest>

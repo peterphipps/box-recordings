@@ -1,1 +1,3 @@
 include ':app', ':lib'
+include ':youview-android-core'
+project(':youview-android-core').projectDir = new File(settingsDir, '../youview-android-core')

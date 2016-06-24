@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">tinydnssd</string>
-    <string name="discoverresolver_demo">DiscoverResolver Demo</string>
-    <string name="mdnsdiscover_demo">MDNSDiscover Demo</string>
-
+    <string name="discoverresolver_demo">Discover Boxes</string>
+    <string name="mdnsdiscover_demo">Discover Boxes</string>
+    <string name="box_recordings_header">Discover Boxes</string>
     <string name="action_settings">Settings</string>
     <string name="discover">Discover</string>
-    <string name="num_services_found">%d services found</string>
-    <string name="search_for">Search for %s</string>
-    <string name="searching_for">Searching for %s</string>
-    <string name="title_activity_pair_box">PairBoxActivity</string>
+    <string name="num_services_found">%d boxes found</string>
+    <string name="search_for">Search for boxes</string>
+    <string name="searching_for">Searching for boxes</string>
+    <string name="pair_boxes_label">Pair with Box</string>
 </resources>

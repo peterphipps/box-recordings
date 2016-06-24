@@ -22,19 +22,65 @@
 package com.youview.tinydnssd.demo;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.widget.Toast;
+
+import com.youview.core.YouViewCore;
+import com.youview.core.identity.IdentityRequests;
+import com.youview.core.identity.client.Client;
+import com.youview.core.identity.token.model.TokenDetails;
+import com.youview.core.requestmanager.Callback;
+import com.youview.core.requestmanager.Failure;
+import com.youview.core.requestmanager.Result;
+
+import java.util.concurrent.CountDownLatch;
 
 public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .penaltyDeath()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .penaltyDeath()
-                .build());
+//        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//                .detectAll()
+//                .penaltyDeath()
+//                .build());
+//        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+//                .detectAll()
+//                .penaltyDeath()
+//                .build());
+
+        YouViewCore.initialise("a", getApplicationContext());
+
+        final Client client = Client.createDefaultClient();
+
+        //Get application's shared preferences
+        final SharedPreferences sharedpreferences = getSharedPreferences("com.youview.tinydnssd.demo", Context.MODE_PRIVATE);
+        //If application has not already been registered
+        if (!sharedpreferences.contains("registered")) {
+            //Register application
+            IdentityRequests.registerClientRequest(client.getId(), client.getSecret(),new Callback<TokenDetails>() {
+                @Override
+                public void call(Result<TokenDetails> result) {
+                    if (result.isSuccessful()){
+                        Toast.makeText(getApplicationContext(), "Registering...", Toast.LENGTH_SHORT).show();
+                        //Add flag to shared preferences to confirm application is registered
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putBoolean("registered", true);
+                        editor.putString("client-id", client.getId());
+                        editor.apply();
+                    }
+                }
+            }).start();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Registered",Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
+
     }
 }
